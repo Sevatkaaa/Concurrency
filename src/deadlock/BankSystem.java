@@ -8,6 +8,27 @@ public class BankSystem {
         BankAccount b = new BankAccount(2000);
 
         new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
         new Thread(() -> transfer(b, a, 200)).start();
 
         Thread.sleep(1000);
@@ -21,13 +42,13 @@ public class BankSystem {
         if (money > a.getBablo()) {
             throw new NotEnoughBabloException(a);
         }
-        System.out.println(String.format("%d money on 1 account", a.getBablo()));
-        System.out.println(String.format("%d money on 2 account", b.getBablo()));
+        System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
+        System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
 
         a.minus(money);
         b.plus(money);
 
-        System.out.println(String.format("%d money on 1 account", a.getBablo()));
-        System.out.println(String.format("%d money on 2 account", b.getBablo()));
+        System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
+        System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
     }
 }
