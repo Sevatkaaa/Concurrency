@@ -38,7 +38,7 @@ public class BankSystem {
 
     }
 
-    private static void transfer(BankAccount a, BankAccount b, int money) {
+    private static synchronized void transfer(BankAccount a, BankAccount b, int money) {
         if (money > a.getBablo()) {
             throw new NotEnoughBabloException(a);
         }
