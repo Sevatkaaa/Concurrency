@@ -8,9 +8,30 @@ public class BankSystem {
         BankAccount b = new BankAccount(2000);
 
         new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+        new Thread(() -> transfer(a, b, 100)).start();
+
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
+        new Thread(() -> transfer(b, a, 200)).start();
         new Thread(() -> transfer(b, a, 200)).start();
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
         System.out.println(a.getBablo());
         System.out.println(b.getBablo());
