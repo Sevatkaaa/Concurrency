@@ -18,13 +18,16 @@ public class BankSystem {
     }
 
     private static void transfer(BankAccount a, BankAccount b, int money) {
-        synchronized (a) {
+        boolean isALower = a.getId() < b.getId();
+        BankAccount low = isALower ? a : b;
+        BankAccount high = isALower ? b : a;
+        synchronized (low) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (b) {
+            synchronized (high) {
                 if (money > a.getBablo()) {
                     throw new NotEnoughBabloException(a);
                 }

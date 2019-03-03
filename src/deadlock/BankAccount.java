@@ -1,10 +1,14 @@
 package deadlock;
 
 public class BankAccount {
+    private static int iterableId = 0;
+
     private int bablo;
+    private int id;
 
     public BankAccount(int bablo) {
         this.bablo = bablo;
+        id = iterableId++;
     }
 
     public void minus(int bakshish) {
@@ -19,10 +23,15 @@ public class BankAccount {
         return bablo;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "BankAccount{" +
                 "bablo=" + bablo +
+                ", id=" + id +
                 '}';
     }
 }
