@@ -18,15 +18,21 @@ public class BankSystem {
     }
 
     private static void transfer(BankAccount a, BankAccount b, int money) {
-        synchronized (a) {
+        a.lock();
+        try {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (b) {
+            b.lock();
+            try {
                 doTransfer(a, b, money);
+            } finally {
+                b.unlock();
             }
+        } finally {
+            a.unlock();
         }
     }
 
