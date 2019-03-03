@@ -8,27 +8,6 @@ public class BankSystem {
         BankAccount b = new BankAccount(2000);
 
         new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(a, b, 100)).start();
-
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
         new Thread(() -> transfer(b, a, 200)).start();
 
         Thread.sleep(1000);
@@ -40,6 +19,11 @@ public class BankSystem {
 
     private static void transfer(BankAccount a, BankAccount b, int money) {
         synchronized (a) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             synchronized (b) {
                 if (money > a.getBablo()) {
                     throw new NotEnoughBabloException(a);
