@@ -38,17 +38,21 @@ public class BankSystem {
 
     }
 
-    private static synchronized void transfer(BankAccount a, BankAccount b, int money) {
-        if (money > a.getBablo()) {
-            throw new NotEnoughBabloException(a);
+    private static void transfer(BankAccount a, BankAccount b, int money) {
+        synchronized (a) {
+            synchronized (b) {
+                if (money > a.getBablo()) {
+                    throw new NotEnoughBabloException(a);
+                }
+                System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
+                System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
+
+                a.minus(money);
+                b.plus(money);
+
+                System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
+                System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
+            }
         }
-        System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
-
-        a.minus(money);
-        b.plus(money);
-
-        System.out.println(String.format("%d money on 1 account from %d", a.getBablo(), Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account from %d", a.getBablo(), Thread.currentThread().getId()));
     }
 }
