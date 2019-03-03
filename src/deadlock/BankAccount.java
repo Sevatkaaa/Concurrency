@@ -50,6 +50,7 @@ public class BankAccount {
     public String toString() {
         return "BankAccount{" +
                 "bablo=" + bablo +
+                " lock is locked:" + ((ReentrantLock)lock).isLocked() +
                 '}';
     }
 }
