@@ -31,12 +31,14 @@ public class BankSystem {
                     }
                 } else {
                     System.out.println(String.format("Wasn't able to lock %s", b));
+                    a.fail();
                 }
             } finally {
                 a.unlock();
             }
         } else {
             System.out.println(String.format("Wasn't able to lock %s", b));
+            b.fail();
         }
     }
 

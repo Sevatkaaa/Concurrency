@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class BankAccount {
     private int bablo;
     private Lock lock;
+    private int timesFailed;
 
     public BankAccount(int bablo) {
         this.bablo = bablo;
@@ -19,10 +20,6 @@ public class BankAccount {
 
     public void plus(int bakshish) {
         bablo += bakshish;
-    }
-
-    public int getBablo() {
-        return bablo;
     }
 
     public void lock() {
@@ -46,11 +43,20 @@ public class BankAccount {
         lock.unlock();
     }
 
+    public void fail() {
+        timesFailed++;
+    }
+
+    public int getBablo() {
+        return bablo;
+    }
+
     @Override
     public String toString() {
         return "BankAccount{" +
                 "bablo=" + bablo +
                 " lock is locked:" + ((ReentrantLock)lock).isLocked() +
+                " timesFailed=" + timesFailed +
                 '}';
     }
 }
