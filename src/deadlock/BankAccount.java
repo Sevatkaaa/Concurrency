@@ -1,17 +1,19 @@
 package deadlock;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankAccount {
     private int bablo;
     private Lock lock;
-    private int timesFailed;
+    private AtomicInteger timesFailed;
 
     public BankAccount(int bablo) {
         this.bablo = bablo;
         lock = new ReentrantLock();
+        timesFailed = new AtomicInteger();
     }
 
     public void minus(int bakshish) {
@@ -44,7 +46,7 @@ public class BankAccount {
     }
 
     public void fail() {
-        timesFailed++;
+        timesFailed.incrementAndGet();
     }
 
     public int getBablo() {
@@ -56,7 +58,7 @@ public class BankAccount {
         return "BankAccount{" +
                 "bablo=" + bablo +
                 " lock is locked:" + ((ReentrantLock)lock).isLocked() +
-                " timesFailed=" + timesFailed +
+                " timesFailed=" + timesFailed.get() +
                 '}';
     }
 }
