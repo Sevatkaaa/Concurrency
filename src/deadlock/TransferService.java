@@ -39,7 +39,7 @@ public class TransferService implements Callable<Boolean> {
                         b.unlock();
                     }
                 } else {
-                    System.out.println(String.format("Wasn't able to lock %s", b));
+//                    System.out.println(String.format("Wasn't able to lock %s", b));
                     a.fail();
                     return Boolean.FALSE;
                 }
@@ -47,7 +47,7 @@ public class TransferService implements Callable<Boolean> {
                 a.unlock();
             }
         } else {
-            System.out.println(String.format("Wasn't able to lock %s", b));
+//            System.out.println(String.format("Wasn't able to lock %s", b));
             b.fail();
             return Boolean.FALSE;
         }
@@ -58,13 +58,13 @@ public class TransferService implements Callable<Boolean> {
         if (money > a.getBablo()) {
             throw new NotEnoughBabloException(a);
         }
-        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
+//        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
+//        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
 
         a.minus(money);
         b.plus(money);
 
-        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
+//        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
+//        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
     }
 }

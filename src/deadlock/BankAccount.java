@@ -53,6 +53,10 @@ public class BankAccount {
         return bablo;
     }
 
+    public int getTimesFailed() {
+        return timesFailed.get();
+    }
+
     @Override
     public String toString() {
         return "BankAccount{" +
