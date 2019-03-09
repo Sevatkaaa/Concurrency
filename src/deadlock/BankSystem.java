@@ -1,18 +1,26 @@
 package deadlock;
 
-import exceptions.NotEnoughBabloException;
-
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BankSystem {
     public static void main(String[] args) throws InterruptedException {
         BankAccount a = new BankAccount(500);
         BankAccount b = new BankAccount(2000);
 
-        new Thread(() -> transfer(a, b, 100)).start();
-        new Thread(() -> transfer(b, a, 200)).start();
+        Random random = new Random();
+
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 0; i < 5; i++) {
+            executor.submit(new TransferService(a, b, random.nextInt(100)));
+            executor.submit(new TransferService(b, a, random.nextInt(200)));
+        }
 
         Thread.sleep(1000);
+
+        executor.shutdown();
 
         System.out.println();
         System.out.println(a.getBablo() + " on account " + a.toString());
@@ -20,39 +28,5 @@ public class BankSystem {
 
     }
 
-    private static void transfer(BankAccount a, BankAccount b, int money) {
-        if (a.tryLock(100, TimeUnit.MILLISECONDS)) {
-            try {
-                if (b.tryLock(100, TimeUnit.MILLISECONDS)) {
-                    try {
-                        doTransfer(a, b, money);
-                    } finally {
-                        b.unlock();
-                    }
-                } else {
-                    System.out.println(String.format("Wasn't able to lock %s", b));
-                    a.fail();
-                }
-            } finally {
-                a.unlock();
-            }
-        } else {
-            System.out.println(String.format("Wasn't able to lock %s", b));
-            b.fail();
-        }
-    }
 
-    private static void doTransfer(BankAccount a, BankAccount b, int money) {
-        if (money > a.getBablo()) {
-            throw new NotEnoughBabloException(a);
-        }
-        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
-
-        a.minus(money);
-        b.plus(money);
-
-        System.out.println(String.format("%d money on 1 account %s from %d", a.getBablo(), a, Thread.currentThread().getId()));
-        System.out.println(String.format("%d money on 2 account %s from %d", a.getBablo(), b, Thread.currentThread().getId()));
-    }
 }
