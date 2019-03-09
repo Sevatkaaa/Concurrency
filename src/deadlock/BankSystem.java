@@ -23,11 +23,9 @@ public class BankSystem {
             results.add(executor.submit(new TransferService(b, a, random.nextInt(200))));
         }
 
-        Thread.sleep(1000);
-
         for (int i = 0; i < results.size(); i++) {
             try {
-                System.out.println(results.get(i).get());
+                System.out.println("Result " + i + " is " + results.get(i).get());
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
